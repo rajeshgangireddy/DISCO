@@ -37,7 +37,9 @@ If a run is interrupted, simply rerun the same command — DISCO automatically s
 
 DISCO uses [uv](https://docs.astral.sh/uv/) for dependency management (you may need to [install uv](https://docs.astral.sh/uv/getting-started/installation/) first). To install:
 
-> **AMD GPUs:** DeepSpeed does not support AMD GPUs. If you are using an AMD GPU, remove the `deepspeed` dependency from `pyproject.toml` before running `uv sync`, and run with `use_deepspeed_evo_attention=false`.
+> **AMD GPUs:** DS4Sci_EvoformerAttention has no AMD kernel. If you are using an AMD GPU, remove the `deepspeed` dependency from `pyproject.toml` before running `uv sync`, and run with `use_deepspeed_evo_attention=false`.
+
+> **Intel XPU:** single-GPU inference is supported. Install a torch XPU build (`uv pip install --torch-backend=xpu --reinstall torch`), then add `fabric=xpu` to the command line — this also disables `use_deepspeed_evo_attention`, since that kernel has no XPU build either. Multi-XPU and distributed runs aren't supported.
 
 ```bash
 uv sync
