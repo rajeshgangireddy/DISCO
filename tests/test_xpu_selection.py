@@ -47,6 +47,12 @@ def test_rejects_multi_node_xpu():
         runner.init_env()
 
 
+def test_rejects_multi_device_xpu():
+    runner = _make_runner(**{"fabric.devices": 2})
+    with pytest.raises(ValueError, match="single device"):
+        runner.init_env()
+
+
 def test_rejects_unavailable_xpu():
     runner = _make_runner()
     with mock.patch("runner.inference.XPUAccelerator.is_available", return_value=False):

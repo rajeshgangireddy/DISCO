@@ -222,6 +222,8 @@ class InferenceRunner:
         if accelerator == "xpu":
             if self.configs.fabric.num_nodes != 1:
                 raise ValueError("XPU inference only supports a single node.")
+            if self.configs.fabric.get("devices", 1) != 1:
+                raise ValueError("XPU inference only supports a single device.")
             if not XPUAccelerator.is_available():
                 raise RuntimeError(
                     "fabric.accelerator=xpu but no XPU device is available."
