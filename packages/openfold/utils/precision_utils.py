@@ -17,8 +17,10 @@ import torch
 
 def is_fp16_enabled():
     # Autocast world
-    accelerator = torch.accelerator.current_accelerator()
-    device_type = accelerator.type if accelerator is not None else "cpu"
+    if torch.accelerator.is_available():
+        device_type = torch.accelerator.current_accelerator().type
+    else:
+        device_type = "cpu"
     fp16_enabled = torch.get_autocast_dtype(device_type) == torch.float16
     fp16_enabled = fp16_enabled and torch.is_autocast_enabled(device_type)
 
