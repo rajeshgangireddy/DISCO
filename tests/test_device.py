@@ -22,16 +22,17 @@ from disco.utils import device as device_utils
 
 
 def test_accelerator_type_defaults_to_cpu():
-    with mock.patch("torch.accelerator.current_accelerator", return_value=None):
+    with mock.patch("torch.accelerator.is_available", return_value=False):
         assert device_utils.accelerator_type() == "cpu"
 
 
 def test_accelerator_type_reports_active_accelerator():
-    with mock.patch(
-        "torch.accelerator.current_accelerator",
-        return_value=torch.device("xpu"),
-    ):
-        assert device_utils.accelerator_type() == "xpu"
+    with mock.patch("torch.accelerator.is_available", return_value=True):
+        with mock.patch(
+            "torch.accelerator.current_accelerator",
+            return_value=torch.device("xpu"),
+        ):
+            assert device_utils.accelerator_type() == "xpu"
 
 
 def test_manual_seed_all_skips_cpu():

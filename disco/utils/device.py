@@ -24,9 +24,14 @@ from lightning.fabric.accelerators import Accelerator
 
 
 def accelerator_type() -> str:
-    """Active accelerator type ("cuda", "xpu", ...), or "cpu" if none is active."""
-    acc = torch.accelerator.current_accelerator()
-    return acc.type if acc is not None else "cpu"
+    """Active accelerator type ("cuda", "xpu", ...), or "cpu" if none is active.
+
+    current_accelerator() alone only reflects what torch was built with, not
+    whether a device is actually there, so check is_available() first.
+    """
+    if not torch.accelerator.is_available():
+        return "cpu"
+    return torch.accelerator.current_accelerator().type
 
 
 def manual_seed_all(seed: int) -> None:
