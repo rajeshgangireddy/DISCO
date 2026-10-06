@@ -39,8 +39,6 @@ DISCO uses [uv](https://docs.astral.sh/uv/) for dependency management (you may n
 
 > **AMD GPUs:** DS4Sci_EvoformerAttention has no AMD kernel. If you are using an AMD GPU, remove the `deepspeed` dependency from `pyproject.toml` before running `uv sync`, and run with `use_deepspeed_evo_attention=false`.
 
-> **Intel XPU:** single-GPU inference is supported. Install a torch XPU build (`uv pip install --torch-backend=xpu --reinstall torch`), then add `fabric=xpu` to the command line — this also disables `use_deepspeed_evo_attention`, since that kernel has no XPU build either. Multi-XPU and distributed runs aren't supported.
-
 ```bash
 uv sync
 ```
@@ -51,6 +49,8 @@ By default, `uv sync` installs PyTorch with its default backend. If you need a s
 uv pip uninstall torch
 uv pip install torch --torch-backend=cu124
 ```
+
+> **Intel XPU:** single-GPU inference is supported. After `uv sync`, reinstall torch with the XPU backend (`uv pip uninstall torch && uv pip install torch --torch-backend=xpu`), then add `fabric=xpu` to the command line — this also disables `use_deepspeed_evo_attention`, since that kernel has no XPU build either. Multi-XPU and distributed runs aren't supported.
 
 To activate the environment run from the top-level of the repository:
 
