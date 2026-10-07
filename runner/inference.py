@@ -268,7 +268,8 @@ class InferenceRunner:
         if use_fastlayernorm == "fast_layernorm":
             if self.device.type != "cuda":
                 raise RuntimeError(
-                    "fast_layernorm is a CUDA-only kernel; unset LAYERNORM_TYPE for XPU."
+                    "fast_layernorm is a CUDA-only kernel; unset the "
+                    "LAYERNORM_TYPE environment variable for XPU."
                 )
             logging.info(
                 "The kernels will be compiled when fast_layernorm is called for the first time."

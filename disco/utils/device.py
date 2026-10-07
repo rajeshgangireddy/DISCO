@@ -52,6 +52,8 @@ def autocast_disabled():
     return torch.autocast(device_type=accelerator_type(), enabled=False)
 
 
+# Adapted from anomalib's XPUAccelerator (Copyright (C) 2025 Intel Corporation,
+# Apache-2.0): https://github.com/open-edge-platform/anomalib
 class XPUAccelerator(Accelerator):
     """Fabric accelerator for a single Intel GPU (`torch.device("xpu")`)."""
 
