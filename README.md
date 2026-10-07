@@ -50,7 +50,7 @@ uv pip uninstall torch
 uv pip install torch --torch-backend=cu124
 ```
 
-> **Intel XPU:** single-GPU inference is supported. After `uv sync`, reinstall torch with the XPU backend (`uv pip uninstall torch && uv pip install torch --torch-backend=xpu`, or in one step: `uv pip install torch --torch-backend=xpu --reinstall`), then add `fabric=xpu` to the command line — this also disables `use_deepspeed_evo_attention`, since that kernel has no XPU build either. Multi-XPU and distributed runs haven't been tested.
+> **Intel XPU:** single-GPU inference is supported. After `uv sync`, reinstall torch with the XPU backend (`uv pip uninstall torch && uv pip install torch --torch-backend=xpu`, or in one step: `uv pip install torch --torch-backend=xpu --reinstall`), then add `fabric=xpu` to the command line. This also disables `use_deepspeed_evo_attention`, since that kernel has no XPU build either. Multi-XPU and distributed runs haven't been tested.
 
 To activate the environment run from the top-level of the repository:
 
